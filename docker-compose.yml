@@ -1,0 +1,56 @@
+services:
+  app:
+    container_name: flickfeed
+    build: .
+    ports:
+      - "8080:8080"
+    restart: always
+    environment:
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - OMDB_API_KEY=${OMDB_API_KEY}
+    depends_on:
+      - mysql
+    networks:
+      - flickfeed
+  
+  mysql:
+    image: mysql:8.0.31
+    container_name: flickfeed-mysql
+    volumes:
+      - ./mysql:/var/lib/mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+    command: --sql_mode= --default-authentication-plugin=mysql_native_password
+    networks:
+      - flickfeed
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: flickfeed-phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    volumes:
+      - ./themes/blueberry:/var/www/html/themes/blueberry
+    environment:
+      - PMA_ARBITRARY=0
+      - APACHE_PORT=80
+      - PMA_HOST=${DB_HOST}
+      - UPLOAD_LIMIT=100000000
+    networks:
+      - flickfeed
+
+networks:
+  flickfeed:
+    ipam:
+      driver: default
+      config:
+        - subnet: 15.0.0.0/24
+          gateway: 15.0.0.1

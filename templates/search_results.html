@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Search Results - FlickFeed</title>
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="icon" type="image/png" href="/imgs/favicon.png" sizes="32x32">
+</head>
+
+<body>
+	<div id="result">
+		<center>
+			<h1>Search Results</h1>
+			<a href="/"><span aria-hidden="true">←</span> Back to home</a>
+			{{ if . }}
+			{{ range . }}
+			<table>
+				<thead>
+					<tr>
+						<th colspan="5">
+							<strong>{{ .Title }}</strong> ({{ .Year }})
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<img src="{{ .Poster }}" alt="Poster">
+						</td>
+						<td>{{ .Plot }}</td>
+						<td>★ {{ .ImdbRating }}</td>
+						<td>{{ .Type }}</td>
+						<td>
+							<form method="post" action="/addShow">
+								<input type="hidden" name="title" value="{{ .Title }}">
+								<input type="hidden" name="year" value="{{ .Year }}">
+								<input type="hidden" name="poster" value="{{ .Poster }}">
+								<input type="hidden" name="rating" value="{{ .ImdbRating }}">
+								<button type="submit">Add to My List</button>
+							</form>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			{{ end }}
+			{{ else }}
+			<p>No results found.</p>
+			{{ end }}
+			<br>
+		</center>
+	</div>
+</body>
+
+</html>

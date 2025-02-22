@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>My List - FlickFeed</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="icon" type="image/png" href="/imgs/favicon.png" sizes="32x32">
+</head>
+
+<body>
+	<div id="mylist">
+		<center>
+			<h1>My List</h1>
+			<a href="/"><span aria-hidden="true">←</span> Back to home</a>
+			<table>
+				<thead>
+					<tr>
+						<th>Poster</th>
+						<th>Title</th>
+						<th>Year</th>
+						<th>Rating</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{range .}}
+					<tr>
+						<td><img src="{{.Poster}}" alt="Poster"></td>
+						<td><strong>{{.Title}}</strong></td>
+						<td>{{.Year}}</td>
+						<td>★ {{.ImdbRating}}</td>
+					</tr>
+					{{else}}
+					<tr>
+						<td colspan="4">No shows added yet.</td>
+					</tr>
+					{{end}}
+				</tbody>
+			</table>
+		</center>
+	</div>
+</body>
+
+</html>

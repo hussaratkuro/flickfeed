@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>FlickFeed</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="icon" type="image/png" href="/imgs/favicon.png" sizes="32x32">
+</head>
+
+<body>
+	<div id="flickfeed">
+		<center>
+			<h1>FlickFeed</h1>
+			<form method="post" action="/search">
+				<div id="underline" tabindex="0">
+					<input type="text" name="query" placeholder="Input movies/series...">
+					<button type="submit">Search</button>
+				</div>
+				</form>
+			<br>
+			<form action="/mylist" method="get">
+				<button type="submit">My List</button>
+			</form>
+		</center>
+	</div>
+</body>
+
+</html>
